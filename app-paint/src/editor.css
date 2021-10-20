@@ -1,0 +1,76 @@
+#editor {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 10rem 20px 10rem;
+}
+
+#editor h1 {
+  margin-bottom: 1.5rem;
+  color: #319985;
+  font-size: 3rem;
+}
+
+#editor h2 {
+  margin-bottom: 1rem;
+  color: #319985;
+}
+
+#editor #options {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+#editor #options .option {
+  display: flex;
+  flex-direction: column;
+}
+
+#editor #options .PanelInput {
+  height: 5rem;
+  width: 5rem;
+  font-size: 2rem;
+  text-align: center;
+  background-color: #293241;
+  color: #e0fbfc;
+  border: 1px solid #98c1d9;
+  border-radius: 0.25rem;
+  margin: 0 1rem 0.5rem 1rem;
+  padding-left: 1rem;
+}
+
+#editor #options .PanelInput:focus {
+  outline: none !important;
+  border-color: yellow;
+  box-shadow: 0 0 0.5rem #98c1d9;
+}
+
+@font-face {
+  font-family: 'AnotherDayV2';
+  src: url('AnotherDayV2.ttf');
+}
+
+#editor .button {
+  font-size: 1.25rem;
+  font-family: AnotherDayV2;
+  background-color: #E0D581;
+  color: #82560E;
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease-in-out;
+  margin-bottom: 2rem;
+}
+
+#editor .button:hover {
+  cursor: pointer;
+  background-color: transparent;
+  border-color: #A689F7;
+}
+
+#editor .compact-picker {
+
+}
+

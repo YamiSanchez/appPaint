@@ -1,0 +1,25 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F3D9F0;
+  color: #221152;
+  text-align: center;
+  min-width: fit-content;
+  font-family: AnotherDayV2;
+}
+
+@font-face {
+  font-family: 'AnotherDayV2';
+  src: url('AnotherDayV2.ttf');
+}
+
+.titulo {
+  color: #520448;
+  font-size: 8rem;
+}
