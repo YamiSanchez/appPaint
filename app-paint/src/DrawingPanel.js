@@ -4,13 +4,13 @@ import Row from "./Row";
 import html2canvas from 'html2canvas'
 
 export default function DrawingPanel(props) {
-  const { width, height, selectedColor } = props;
+  const { width, height, selectedColor, mouseDown } = props;
   const panelRef = useRef();
   let rows = [];
   const printRef = useRef();
 
   for (let i = 0; i < height; i++) {
-    rows.push(<Row key={i} width={width} selectedColor={selectedColor} />);
+    rows.push(<Row key={i} width={width} selectedColor={selectedColor} mouseDown={mouseDown} />);
   }
 
   function handlePrint(event) {
@@ -22,7 +22,7 @@ export default function DrawingPanel(props) {
 
   return (
     <div id="drawingPanel">
-    
+
       <div id="pixels" ref={panelRef}>
         {rows}
       </div>

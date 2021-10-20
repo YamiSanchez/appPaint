@@ -10,6 +10,7 @@ export default function Editor() {
   const [hideDrawingPanel, setHideDrawingPanel] = useState(true);
   const [buttonText, setButtonText] = useState("start drawing");
   const [selectedColor, setColor] = useState("#f44336");
+  const [mouseDown, setMouseDown] = useState(false);
 
   function initializeDrawingPanel() {
     setHideOptions(!hideOptions);
@@ -22,6 +23,14 @@ export default function Editor() {
 
   function changeColor(color) {
     setColor(color.hex);
+  }
+
+  document.body.onmousedown = function() {
+    setMouseDown(true);
+  }
+
+  document.body.onmouseup = function() {
+    setMouseDown(false);
   }
 
   return (
@@ -68,6 +77,7 @@ export default function Editor() {
           width={panelWidth}
           height={panelHeight}
           selectedColor={selectedColor}
+          mouseDown={mouseDown}
         />
       )}
     </div>
