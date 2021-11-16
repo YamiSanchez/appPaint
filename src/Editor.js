@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./editor.css";
 import { CompactPicker } from "react-color";
 import DrawingPanel from "./DrawingPanel";
+import axios from "axios";
 
 export default function Editor() {
   const [panelWidth, setPanelWidth] = useState(30);
@@ -9,10 +10,13 @@ export default function Editor() {
   const [hideOptions, setHideOptions] = useState(false);
   const [hideDrawingPanel, setHideDrawingPanel] = useState(true);
   const [buttonText, setButtonText] = useState("start drawing");
-  const [selectedColor, setColor] = useState("#f44336");
+  const [selectedColor, setColor] = useState('#');
   const [mouseDown, setMouseDown] = useState(false);
+  const [loading, setLoading] = useState('idle');
+  const [colorRandom, setColorRandom] = useState([]);
 
   function initializeDrawingPanel() {
+    coloresRandom();
     setHideOptions(!hideOptions);
     setHideDrawingPanel(!hideDrawingPanel);
 
@@ -32,6 +36,29 @@ export default function Editor() {
   document.body.onmouseup = function() {
     setMouseDown(false);
   }
+
+  const coloresRandom = async () => {
+    axios.get('https://www.colr.org/json/colors/random/46').then(response => {
+      setLoading('Loading');
+      const generador = response.data.matching_colors.map((value) => {
+        return '#' + value;
+      });
+      const filtro = generador.filter(element => {
+        return element !== '#';
+      });
+      const colorArreglo = [];
+      for(let i=0; i<36; i++) {
+        colorArreglo.push(filtro[i]);
+      }
+      setColorRandom(colorArreglo);
+      setLoading('Complete');
+    }).catch(() => {
+      alert("Error al cargar paleta de colores");
+      setLoading('Error');
+    })
+  }
+
+  useEffect(() => { coloresRandom()}, [hideOptions]);
 
   return (
     <div id="editor">
@@ -69,7 +96,7 @@ export default function Editor() {
       </button>
 
       {hideOptions && (
-        <CompactPicker color={selectedColor} onChangeComplete={changeColor} />
+        <CompactPicker color={selectedColor} colors={colorRandom} onChangeComplete={changeColor} />
       )}
 
       {hideOptions && (
