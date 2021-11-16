@@ -3,6 +3,8 @@ import "./editor.css";
 import { CompactPicker } from "react-color";
 import DrawingPanel from "./DrawingPanel";
 import axios from "axios";
+import imgLoading from './loading.gif';
+import imgError from './error.gif'
 
 export default function Editor() {
   const [panelWidth, setPanelWidth] = useState(30);
@@ -16,13 +18,18 @@ export default function Editor() {
   const [colorRandom, setColorRandom] = useState([]);
 
   function initializeDrawingPanel() {
-    coloresRandom();
     setHideOptions(!hideOptions);
     setHideDrawingPanel(!hideDrawingPanel);
 
-    buttonText === "start drawing"
-      ? setButtonText("reset")
-      : setButtonText("start drawing");
+    if(buttonText === "start drawing") {
+      coloresRandom();
+      setButtonText("reset")
+    }
+    else {
+      setButtonText("start drawing");
+      setLoading('idle');
+    }
+
   }
 
   function changeColor(color) {
@@ -95,18 +102,26 @@ export default function Editor() {
         {buttonText}
       </button>
 
-      {hideOptions && (
-        <CompactPicker color={selectedColor} colors={colorRandom} onChangeComplete={changeColor} />
-      )}
 
-      {hideOptions && (
+      {loading === 'Loading' && <div>
+        <img src={imgLoading} alt='loading'></img>
+      </div>}
+      {loading === 'Error' && <div>
+        <img src={imgError} alt='error'></img>
+        <h2>Error al cargar los colores</h2>
+      </div>}
+      {loading === 'Complete' && hideOptions && 
+      <CompactPicker color={selectedColor} colors={colorRandom} onChangeComplete={changeColor} 
+      />}
+
+      {loading === 'Complete' && hideOptions &&
         <DrawingPanel
           width={panelWidth}
           height={panelHeight}
           selectedColor={selectedColor}
           mouseDown={mouseDown}
-        />
-      )}
+        />}
+
     </div>
   );
 }
